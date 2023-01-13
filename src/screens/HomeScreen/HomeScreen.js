@@ -1,92 +1,46 @@
-import React, { useEffect, useState } from 'react'
-import { FlatList, Keyboard, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import React,{useState} from 'react';
+import {Text, View, Image } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import { KeyboardAvoidingView } from 'react-native-web';
 import styles from './styles';
 import { firebase } from '../../firebase/config'
-
-export default function HomeScreen(props) {
-
-    const [entityText, setEntityText] = useState('')
-    const [entities, setEntities] = useState([])
-
-    const entityRef = firebase.firestore().collection('entities')
-    const userID = props.extraData.id
-
-    useEffect(() => {
-        entityRef
-            .where("authorID", "==", userID)
-            .orderBy('createdAt', 'desc')
-            .onSnapshot(
-                querySnapshot => {
-                    const newEntities = []
-                    querySnapshot.forEach(doc => {
-                        const entity = doc.data()
-                        entity.id = doc.id
-                        newEntities.push(entity)
-                    });
-                    setEntities(newEntities)
-                },
-                error => {
-                    console.log(error)
-                }
-            )
-    }, [])
-
-    const onAddButtonPress = () => {
-        if (entityText && entityText.length > 0) {
-            const timestamp = firebase.firestore.FieldValue.serverTimestamp();
-            const data = {
-                text: entityText,
-                authorID: userID,
-                createdAt: timestamp,
-            };
-            entityRef
-                .add(data)
-                .then(_doc => {
-                    setEntityText('')
-                    Keyboard.dismiss()
-                })
-                .catch((error) => {
-                    alert(error)
+export default function HomeScreen() {
+    const user = firebase.auth().currentUser;
+    const uid = user.uid
+    const [name,setName] = useState("")
+    const userDocument = firebase.firestore().collection('users').doc(uid);
+    userDocument.get()
+                .then(documentSnapshot => {
+                    console.log('User exists: ', documentSnapshot.exists);
+                
+                    if (documentSnapshot.exists) {
+                    console.log('User data: ', documentSnapshot.data());
+                    }
+                    setName(documentSnapshot.data()["name"]);
                 });
-        }
-    }
-
-    const renderEntity = ({item, index}) => {
-        return (
-            <View style={styles.entityContainer}>
-                <Text style={styles.entityText}>
-                    {index}. {item.text}
-                </Text>
-            </View>
-        )
-    }
-
     return (
         <View style={styles.container}>
-            <View style={styles.formContainer}>
-                <TextInput
-                    style={styles.input}
-                    placeholder='Add new entity'
-                    placeholderTextColor="#aaaaaa"
-                    onChangeText={(text) => setEntityText(text)}
-                    value={entityText}
-                    underlineColorAndroid="transparent"
-                    autoCapitalize="none"
+            <View style={{ flex: 1, backgroundColor: "#9571EE", justifyContent:"flex-end"}} >
+            <Image
+                    style={styles.logo}
+                    source={require('../../../assets/image3.png')}
                 />
-                <TouchableOpacity style={styles.button} onPress={onAddButtonPress}>
-                    <Text style={styles.buttonText}>Add</Text>
-                </TouchableOpacity>
+                <Text style={styles.TextProfile}>Welcome Back, {name}!</Text>
             </View>
-            { entities && (
-                <View style={styles.listContainer}>
-                    <FlatList
-                        data={entities}
-                        renderItem={renderEntity}
-                        keyExtractor={(item) => item.id}
-                        removeClippedSubviews={true}
-                    />
-                </View>
-            )}
+            <KeyboardAvoidingView style={{ flex: 2, backgroundColor: "#FEFBFB"}} >
+                <TouchableOpacity style={[styles.button,{width:"20%",alignSelf:"center"}]}>
+                <Text style={styles.buttonText}>SELECT MAHALLAH</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={[styles.button,{width:"20%",alignSelf:"center"}]}>
+                <Text style={styles.buttonText}>VIEW REPORT</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={[styles.button,{width:"20%",alignSelf:"center"}]}>
+                <Text style={styles.buttonText}>CONTACT LIST</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={[styles.button,{width:"20%",alignSelf:"center"}]}>
+                <Text style={styles.buttonText}>SETTING</Text>
+                </TouchableOpacity>
+            </KeyboardAvoidingView>
         </View>
     )
 }

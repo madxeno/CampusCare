@@ -10,14 +10,17 @@ export default StyleSheet.create({
     },
     logo: {
         flex: 1,
-        height: 120,
-        width: 90,
+        height: 250,
+        width: "64%",
         alignSelf: "center",
+        justifyContent:"flex-end",
         margin: 30
     },
     input: {
         height: 48,
-        borderRadius: 5,
+        borderRadius: 15,
+        borderWidth: 2,
+        borderColor: "#9571EE",
         overflow: 'hidden',
         backgroundColor: 'white',
         marginTop: 10,
@@ -27,17 +30,19 @@ export default StyleSheet.create({
         paddingLeft: 16
     },
     button: {
-        backgroundColor: '#788eec',
+        backgroundColor: '#FEFBFB',
+        borderWidth:2,
+        borderColor:'#CEE177',
         marginLeft: 30,
         marginRight: 30,
         marginTop: 20,
         height: 48,
-        borderRadius: 5,
+        borderRadius: 15,
         alignItems: "center",
         justifyContent: 'center'
     },
     buttonTitle: {
-        color: 'white',
+        color: 'black',
         fontSize: 16,
         fontWeight: "bold"
     },
@@ -48,10 +53,10 @@ export default StyleSheet.create({
     },
     footerText: {
         fontSize: 16,
-        color: '#2e2e2d'
+        color: 'black'
     },
     footerLink: {
-        color: "#788eec",
+        color: "#CEE177",
         fontWeight: "bold",
         fontSize: 16
     }

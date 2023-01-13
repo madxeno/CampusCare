@@ -1,0 +1,5 @@
+1) Base bg (Dark Purple): #9571EE
+2) Green Font: #CEE177
+3) White bg : #FEFBFB
+4) Light Purple (fg): #CFBDF4
+5) Red: #F0908D

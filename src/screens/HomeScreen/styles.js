@@ -3,20 +3,10 @@ import { StyleSheet } from 'react-native';
 export default StyleSheet.create({
     container: {
         flex: 1,
-        alignItems: 'center'
+        width: '100%',
     },
     formContainer: {
-        flexDirection: 'row',
-        height: 80,
-        marginTop: 40,
-        marginBottom: 20,
-        flex: 1,
-        paddingTop: 10,
-        paddingBottom: 10,
-        paddingLeft: 30,
-        paddingRight: 30,
-        justifyContent: 'center',
-        alignItems: 'center'
+        flex:1,
     },
     input: {
         height: 48,
@@ -29,15 +19,28 @@ export default StyleSheet.create({
     },
     button: {
         height: 47,
-        borderRadius: 5,
-        backgroundColor: '#788eec',
-        width: 80,
+        backgroundColor: '#CFBDF4',
+        borderRadius: 25,
         alignItems: "center",
-        justifyContent: 'center'
+        justifyContent: 'center',
+        marginTop: 20,
+    },   
+    buttonProfile: {
+        height: 47,
+        borderRadius: 5,
+        backgroundColor: '#CFBDF4',
+        alignItems: "center",
+        justifyContent: 'center',
+        marginTop: 20,
     },
     buttonText: {
         color: 'white',
-        fontSize: 16
+        fontSize: 16,
+    },
+    TextProfile: {
+        color: '#FEFBFB',
+        fontSize: 27,
+        fontWeight: 'bold',
     },
     listContainer: {
         marginTop: 20,
@@ -52,5 +55,12 @@ export default StyleSheet.create({
     entityText: {
         fontSize: 20,
         color: '#333333'
-    }
+    },
+    logo: {
+        flex: 1,
+        height: 250,
+        width: "100%",
+        alignSelf: "center",
+        margin: 30
+    },
 })
